@@ -79,10 +79,10 @@ namespace Online_Examination_System.Controllers
               
                 return RedirectToAction("Create","subject");
             }
-            if( data.email!= null && data.password!=null && data.RoleId==2)                     //roleid=2 ivnga student login pannitu test start panniduvanga//
+            if( data.email!= null && data.password!=null && data.RoleId==2)                   
             {
-                Session["Userid"] = data.ID;           //userid 2 kudutha antha test page ku poedum aena userid 2 student//
-                return RedirectToAction("teststart", "Test");     //note it //
+                Session["Userid"] = data.ID;          
+                return RedirectToAction("teststart", "Test");     
             }
             else
            
