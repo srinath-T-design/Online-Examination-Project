@@ -1,0 +1,115 @@
+﻿@model Bussiness_Object_Layer.Model.User
+
+@{
+    ViewBag.Title = "Signup";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Colan Quiz</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link href="~/Content/project.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="login">
+        <div class="account-login">
+            <h1>NEW REGISTRATIONS</h1>
+
+            @using (Html.BeginForm())
+            {
+        <form action="" class="login-form">
+
+            <div class="form-group">
+                @*<input type="text" placeholder="User Name" class="form-control">*@
+                @Html.TextBoxFor(x => x.Firstname, new { placeholder = "First Name", @class = "form-control", id = "form1" })
+                @*<p style="display:none;color:red" id="text1">Enter the Firstname</p>*@
+                @Html.ValidationMessageFor(x => x.Firstname)
+            </div>
+
+            <div class="form-group">
+                @*<input type="text" placeholder="User Name" class="form-control">*@
+                @Html.TextBoxFor(x => x.Lastname, new { placeholder = "Last Name", @class = "form-control", id = "form2" })
+                @*<p style="display:none;color:red" id="text2">Enter the last name</p>*@
+                @Html.ValidationMessageFor(x => x.Lastname)
+            </div>
+
+
+
+
+
+
+
+            <div class="form-group">
+                @*<input type="text" placeholder="User Name" class="form-control">*@
+                @Html.TextBoxFor(x => x.email, new { placeholder = "Email", @class = "form-control", id = "form3" })
+                @*<p style="display:none;color:red" id="text3">Enter the Email</p>*@
+                @Html.ValidationMessageFor(x => x.email)
+            </div>
+            <div class="form-group">
+                @*<input type="password" placeholder="Password" class="form-control">*@
+                @Html.PasswordFor(x => x.password, new { placeholder = "Password", @class = "form-control", id = "form4" })
+                @*<p style="display:none;color:red" id="text4">Enter the password</p>*@
+                @Html.ValidationMessageFor(x => x.password)
+            </div>
+
+
+            @*<a href="/User/Login/">Sign Up</a>*@
+            <button id="btn" class="btn" value="signup">Sign Up</button>
+
+            <a href="/User/Login/">Login</a>
+        </form>
+            }
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+
+    <script>
+       
+            $("#btn").click(function () {
+            var text1 = $("#form1").val();
+            var text2 = $("#form2").val();
+            var text3 = $("#form3").val();
+                var text4 = $("#form4").val();
+                if (text1 == "" && text2 == "" && text3 == "" && text4) {
+                $("#text1").css("display", "block")
+                    $("#text2").css("display", "block")
+                    $("#text3").css("display", "block")
+                    $("#text4").css("display","block")
+            }
+            if (text1 != ""  ) {
+
+                $("#text1").css("display", "none")
+
+            }
+            if (text2 != "") {
+                $("#text2").css("display", "none")
+            }
+            if(text3 != "") {
+                $("#text3").css("display","none")
+            }
+            else (text4 != "") {
+                $("#text4").css("display","none")
+            }
+
+
+
+        });
+
+    </script>
+
+
+
+
+
+
+
+</body>
+</html>

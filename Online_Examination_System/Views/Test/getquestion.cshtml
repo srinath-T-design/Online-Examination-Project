@@ -1,0 +1,129 @@
+﻿@model IList<Bussiness_Object_Layer.ViewModel.QuestionpaperVM>
+
+@{
+    Layout = null;
+    // number increment agurathuku//
+    int count = 0;
+    var tid = ViewBag.tid;
+
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Colan Quiz</title>
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="~/Content/qusetionpaper.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+
+    @using (Html.BeginForm())
+
+
+    {
+        @Html.Hidden("tid")
+
+        <div class="container mt-sm-5 my-1">
+            <div class="question ml-sm-5 pl-sm-5 pt-2">
+
+                @*@foreach (var item in Model)*@
+
+
+                @for (var i = 0; i < Model.Count; i++)
+
+                {
+
+                    @Html.DisplayFor(modelitem => Model[i].Question_name) @Html.HiddenFor(modelitem => Model[i].QuestionID) <br />
+                    @*@Html.HiddenFor(modelitem => Model[i].optiontype, new { id = "ids" })<br />*@
+
+
+                    count = 0;
+                    foreach (var j in Model[i].options)
+                    //for (var j = 0; j < Model[i].options; j++)
+
+                    {
+                        if (Model[i].optiontype == 1)
+                        {
+                            @Html.RadioButtonFor(x => Model[i].Selected, j.optionID) @Html.DisplayFor(modelitem => j.optionsname) @Html.HiddenFor(modelitem => j.optionID)<br />
+                        }
+
+                        if (Model[i].optiontype == 2)
+                        {
+
+                            @Html.CheckBoxFor(x => Model[i].options[count].Checked, j.optionID) @Html.DisplayFor(modelitem => j.optionsname) @Html.HiddenFor(x => Model[i].options[count].optionID)<br />
+                            count = count + 1;
+                        }
+
+
+                        if (Model[i].optiontype == 3)
+                        {
+                            @*@Html.RadioButtonFor(modelitem => items.optionsname, new { id = "ids" + items.optionID }) @Html.LabelFor(modelitem => items.optionsname, items.optionsname) @Html.HiddenFor(modelitem => items.optionID) <br />*@
+                            @Html.RadioButtonFor(x => Model[i].Selected, j.optionID) @Html.DisplayFor(modelitem => j.optionsname) @Html.HiddenFor(modelitem => j.optionID) <br />
+
+                        }
+
+
+                        if (Model[i].optiontype == 4)
+                        {
+
+                            @Html.TextBoxFor(x => Model[i].TextField, j.optionID) @Html.HiddenFor(modelitem => j.optionID, new { id = "text" })
+                        }
+
+                        <br />
+                    }
+
+                }
+
+
+            </div>
+            <div id="dialog" style="display:none">
+            </div>
+            <div class="d-flex align-items-center pt-3">
+
+                <div class="ml-auto mr-sm-5"> <input class="btn btn-success" type="submit" value="SUBMIT" id="btn"> </div>
+
+            </div>
+
+
+
+
+
+        </div>
+
+
+    }
+
+    <div id="container" ></div>
+</body>
+</html>
+
+<script src="~/Scripts/jquery-3.6.0.js"></script>
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+<script>
+
+
+    @*$(document).ready(function(){
+
+        $('#btn').on('click', function () {
+            var id = "@ViewBag.tid"
+
+
+            alert(id);
+            $.get("/Test/result", { test_id: id }, function (data) {
+
+                console.log(data);
+
+                $("#container").html(data);
+            }).fail(function (err) {
+                console.log(err);
+
+            });
+        });
+    });*@
+</script>
+
+
+

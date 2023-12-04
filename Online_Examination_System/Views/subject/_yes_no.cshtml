@@ -1,0 +1,17 @@
+﻿
+@model Bussiness_Object_Layer.ViewModel.QuestionAnswer
+@{
+    int count = 4;
+}
+
+<div id="radio1">
+    @*<input type="radio" id="Yes" name="fvrt" value="Yes" />
+
+    <input type="radio" id="No" name="fvrt" value="No" />*@
+
+
+
+    @Html.RadioButtonFor(s => s.Selected, 1)  <label>YES</label><br />
+    @Html.RadioButtonFor(s => s.Selected, 2)    <label>NO</label><br />
+    @*@(id.isTrue?"Yes":"No")*@
+</div>

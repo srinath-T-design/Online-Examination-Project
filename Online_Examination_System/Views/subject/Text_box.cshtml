@@ -1,0 +1,22 @@
+﻿@model Bussiness_Object_Layer.ViewModel.QuestionAnswer
+
+
+@{
+    int count = 1;
+}
+
+
+<div id="text">
+    @*<br><textarea rows="2" cols="30" name="comment" form="form"></textarea><br />*@
+
+    @for (int i = 0; i < count; i++)
+    {
+        @*@Html.TextAreaFor(x => x.Selected, @i)*@ @Html.EditorFor(x => x.option_Tb[i].optionsname)
+    }
+   
+
+
+
+    
+
+</div>

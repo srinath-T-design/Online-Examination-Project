@@ -1,0 +1,50 @@
+﻿@model Bussiness_Object_Layer.Model.User
+
+@{
+    ViewBag.Title = "Getotp";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Colan Quiz</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link href="~/Content/project.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="login">
+        <div class="account-login">
+            <h1>Account Login</h1>
+
+            @using (Html.BeginForm())
+            {
+                <form action="" class="login-form">
+                    <div class="form-group">
+                        @*<input type="text" placeholder="User Name" class="form-control">*@
+                        @Html.TextBoxFor(x => x.email, new { placeholder = " Enter the Email", @class = "form-control" })
+                        @Html.ValidationMessageFor(x=>x.email)
+                    </div>
+                   
+                    <div class="remember">
+                        @*<label class="custom-checkbox">
+                            Remember me
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>*@
+                       
+                    </div>
+                    <button class="btn">Submit</button>
+                    <p>Are you new?<a href="/User/Login/">Back</a></p>
+                </form>
+            }
+        </div>
+    </div>
+
+</body>
+</html>

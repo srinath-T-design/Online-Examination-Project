@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="00f08414b5f243c3be2ef92f72548abb" Name="Diagram1">
+        <EntityTypeShape EntityType="Online_examinationModel.Answertbl" Width="1.5" PointX="7.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_examinationModel.option_tb" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_examinationModel.optiontbl" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_examinationModel.Question" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_examinationModel.Role" Width="1.5" PointX="7.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_examinationModel.subject" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_examinationModel.User" Width="1.5" PointX="10" PointY="8.125" IsExpanded="true" />
+        <AssociationConnector Association="Online_examinationModel.FK__Answertbl__Quest__05D8E0BE" ManuallyRouted="false" />
+        <AssociationConnector Association="Online_examinationModel.FK_ansorder" ManuallyRouted="false" />
+        <AssociationConnector Association="Online_examinationModel.FK_option_tb_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="Online_examinationModel.FK_optionID" ManuallyRouted="false" />
+        <AssociationConnector Association="Online_examinationModel.FK__Question__subjec__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="Online_examinationModel.FK_key" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Online_examinationModel.test_detailtbl" Width="1.5" PointX="12.25" PointY="8.125" />
+        <AssociationConnector Association="Online_examinationModel.FK_test_detailtbl_User" />
+        <EntityTypeShape EntityType="Online_examinationModel.Marktbl" Width="1.5" PointX="14.5" PointY="8.75" />
+        <AssociationConnector Association="Online_examinationModel.FK_Marktbl_test_detailtbl" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

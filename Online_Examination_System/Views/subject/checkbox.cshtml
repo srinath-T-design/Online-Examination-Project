@@ -1,0 +1,24 @@
+﻿
+@model Bussiness_Object_Layer.ViewModel.QuestionAnswer
+@{
+    int count = 4;
+}
+
+
+
+<div class="checkbox">
+    @for (int i = 0; i < @count; i++)
+    {
+
+        @Html.CheckBoxFor(x => x.option_Tb[i].Checked, @i)@Html.EditorFor(x => x.option_Tb[i].optionsname)<br />
+
+     
+
+
+
+
+
+    }
+
+</div>
+

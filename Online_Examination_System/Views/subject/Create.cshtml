@@ -1,0 +1,111 @@
+﻿@model Bussiness_Object_Layer.ViewModel.QuestionAnswer
+
+@{
+    Layout = null;
+}
+
+
+<html>
+<head>
+    <title>Colan Quiz</title>
+    <link href="~/Content/Stylesheet2.css" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+
+    <div class="container">
+        <form>
+            <h5>Insert Questions</h5>
+            <label for="cname">Category Name:</label>
+            @Html.DropDownListFor(model => model.question.subjectID, new SelectList(ViewBag.subjecttitle, "subjectID", "subjectname" + ""), "choose one subject")
+
+
+
+            <div class="input">
+                <label for="fname">Question</label>
+
+                @*<input type="text" id="fname" name="firstname" placeholder="">*@
+                @Html.TextBoxFor(model => model.question.Question_name, new { placeholder = "Enter the Question", @class = "form-control" })
+
+
+            </div>
+
+
+            <div class="option">
+                <label for="ques">Question type</label>
+                @Html.DropDownListFor(model => model.question.optionID, new SelectList(ViewBag.optiontitle, "optionID", "optiontype" + ""), "select question-type", new { id = "optionID" })
+               
+                @Html.HiddenFor(model => model.question.optionID, new { id = "optionIDS", name = "optionID" })
+
+                <div id="container">
+
+                </div>
+
+
+            </div>
+
+
+
+            <!--<div class="input">
+                <label for="fname">Answers</label>-->
+
+                @*<input type="text" id="fname" name="firstname" placeholder="">*@
+                <!--@Html.TextBoxFor(model => model.answertbl.option_tb, new { placeholder = "Enter the answer", @class = "form-control" })
+            </div>-->
+
+
+            <div class="btn">
+                <input type="submit" value="Create a Question">
+                @Html.ActionLink("Back to List", "Index", new { id = "link" })
+            </div>
+
+
+        </form>
+
+    </div>
+
+
+
+
+
+    
+        
+    }
+
+
+
+
+    <script src="~/Scripts/jquery-3.6.0.js"></script>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $("#optionID").on('change', function () {       //optionID is its show optiontype id//   //onchange value of element has been changed//
+            var selected = $("#optionID").val();
+            $('#container').empty();
+            console.log(selected);
+
+            $.ajax({
+                url: '/subject/GetPartial',       // subject is controller name, GetPartial is index name of controller//
+                data: { 'Selected': selected },
+                contentType: 'application/html; charset=utf-8',
+                type: 'GET',
+                dataType: 'html',                        //html formet return//
+                success: function (result) {
+                    console.log(result);
+                    $('#container').html(result);
+
+                },
+                error: function () {
+                    alert("Error while inserting data");
+                }
+            });
+            return false;
+        });
+
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,588 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Online_examinationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Answertbl">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionID" Type="int" />
+          <Property Name="optionID" Type="int" />
+        </EntityType>
+        <EntityType Name="Marktbl">
+          <Key>
+            <PropertyRef Name="mark_id" />
+          </Key>
+          <Property Name="mark_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mark" Type="int" Nullable="false" />
+          <Property Name="test_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="option_tb">
+          <Key>
+            <PropertyRef Name="optionID" />
+          </Key>
+          <Property Name="optionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="optionsname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="quesID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="optiontbl">
+          <Key>
+            <PropertyRef Name="optionID" />
+          </Key>
+          <Property Name="optionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="optiontype" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Question_name" Type="varchar" MaxLength="50" />
+          <Property Name="subjectID" Type="int" />
+          <Property Name="optionID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rolename" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="subject">
+          <Key>
+            <PropertyRef Name="subjectID" />
+          </Key>
+          <Property Name="subjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subjectname" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="test_detailtbl">
+          <Key>
+            <PropertyRef Name="tid" />
+          </Key>
+          <Property Name="tid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subjectid" Type="int" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="s_time" Type="datetime" />
+          <Property Name="e_time" Type="datetime" />
+          <Property Name="duration" Type="int" Nullable="false" />
+          <Property Name="attend_ques" Type="int" Nullable="false" />
+          <Property Name="not_attend_ques" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Firstname" Type="varchar" MaxLength="50" />
+          <Property Name="Lastname" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="otp" Type="int" />
+        </EntityType>
+        <Association Name="FK__Answertbl__Quest__05D8E0BE">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Answertbl" Type="Self.Answertbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Answertbl">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Question__subjec__5CD6CB2B">
+          <End Role="subject" Type="Self.subject" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subject">
+              <PropertyRef Name="subjectID" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="subjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ansorder">
+          <End Role="option_tb" Type="Self.option_tb" Multiplicity="0..1" />
+          <End Role="Answertbl" Type="Self.Answertbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="option_tb">
+              <PropertyRef Name="optionID" />
+            </Principal>
+            <Dependent Role="Answertbl">
+              <PropertyRef Name="optionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_key">
+          <End Role="Role" Type="Self.Role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Marktbl_test_detailtbl">
+          <End Role="test_detailtbl" Type="Self.test_detailtbl" Multiplicity="1" />
+          <End Role="Marktbl" Type="Self.Marktbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_detailtbl">
+              <PropertyRef Name="tid" />
+            </Principal>
+            <Dependent Role="Marktbl">
+              <PropertyRef Name="test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_option_tb_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="1" />
+          <End Role="option_tb" Type="Self.option_tb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="option_tb">
+              <PropertyRef Name="quesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_optionID">
+          <End Role="optiontbl" Type="Self.optiontbl" Multiplicity="1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="optiontbl">
+              <PropertyRef Name="optionID" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="optionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_test_detailtbl_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="test_detailtbl" Type="Self.test_detailtbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="test_detailtbl">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Online_examinationModelStoreContainer">
+          <EntitySet Name="Answertbl" EntityType="Self.Answertbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Marktbl" EntityType="Self.Marktbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="option_tb" EntityType="Self.option_tb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="optiontbl" EntityType="Self.optiontbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="subject" EntityType="Self.subject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="test_detailtbl" EntityType="Self.test_detailtbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Answertbl__Quest__05D8E0BE" Association="Self.FK__Answertbl__Quest__05D8E0BE">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="Answertbl" EntitySet="Answertbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Question__subjec__5CD6CB2B" Association="Self.FK__Question__subjec__5CD6CB2B">
+            <End Role="subject" EntitySet="subject" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ansorder" Association="Self.FK_ansorder">
+            <End Role="option_tb" EntitySet="option_tb" />
+            <End Role="Answertbl" EntitySet="Answertbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_key" Association="Self.FK_key">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Marktbl_test_detailtbl" Association="Self.FK_Marktbl_test_detailtbl">
+            <End Role="test_detailtbl" EntitySet="test_detailtbl" />
+            <End Role="Marktbl" EntitySet="Marktbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_option_tb_Question" Association="Self.FK_option_tb_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="option_tb" EntitySet="option_tb" />
+          </AssociationSet>
+          <AssociationSet Name="FK_optionID" Association="Self.FK_optionID">
+            <End Role="optiontbl" EntitySet="optiontbl" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_test_detailtbl_User" Association="Self.FK_test_detailtbl_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="test_detailtbl" EntitySet="test_detailtbl" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Online_examinationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Answertbl">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionID" Type="Int32" />
+          <Property Name="optionID" Type="Int32" />
+          <NavigationProperty Name="Question" Relationship="Self.FK__Answertbl__Quest__05D8E0BE" FromRole="Answertbl" ToRole="Question" />
+          <NavigationProperty Name="option_tb" Relationship="Self.FK_ansorder" FromRole="Answertbl" ToRole="option_tb" />
+        </EntityType>
+        <EntityType Name="option_tb">
+          <Key>
+            <PropertyRef Name="optionID" />
+          </Key>
+          <Property Name="optionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="optionsname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="quesID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Answertbls" Relationship="Self.FK_ansorder" FromRole="option_tb" ToRole="Answertbl" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_option_tb_Question" FromRole="option_tb" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="optiontbl">
+          <Key>
+            <PropertyRef Name="optionID" />
+          </Key>
+          <Property Name="optionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="optiontype" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK_optionID" FromRole="optiontbl" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Question_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="subjectID" Type="Int32" />
+          <Property Name="optionID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Answertbls" Relationship="Self.FK__Answertbl__Quest__05D8E0BE" FromRole="Question" ToRole="Answertbl" />
+          <NavigationProperty Name="option_tb" Relationship="Self.FK_option_tb_Question" FromRole="Question" ToRole="option_tb" />
+          <NavigationProperty Name="optiontbl" Relationship="Self.FK_optionID" FromRole="Question" ToRole="optiontbl" />
+          <NavigationProperty Name="subject" Relationship="Self.FK__Question__subjec__5CD6CB2B" FromRole="Question" ToRole="subject" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rolename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_key" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="subject">
+          <Key>
+            <PropertyRef Name="subjectID" />
+          </Key>
+          <Property Name="subjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subjectname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK__Question__subjec__5CD6CB2B" FromRole="subject" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="otp" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_key" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="test_detailtbl" Relationship="Online_examinationModel.FK_test_detailtbl_User" FromRole="User" ToRole="test_detailtbl" />
+        </EntityType>
+        <Association Name="FK__Answertbl__Quest__05D8E0BE">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Answertbl" Type="Self.Answertbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Answertbl">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ansorder">
+          <End Role="option_tb" Type="Self.option_tb" Multiplicity="0..1" />
+          <End Role="Answertbl" Type="Self.Answertbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="option_tb">
+              <PropertyRef Name="optionID" />
+            </Principal>
+            <Dependent Role="Answertbl">
+              <PropertyRef Name="optionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_option_tb_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="1" />
+          <End Role="option_tb" Type="Self.option_tb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="option_tb">
+              <PropertyRef Name="quesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_optionID">
+          <End Role="optiontbl" Type="Self.optiontbl" Multiplicity="1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="optiontbl">
+              <PropertyRef Name="optionID" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="optionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Question__subjec__5CD6CB2B">
+          <End Role="subject" Type="Self.subject" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subject">
+              <PropertyRef Name="subjectID" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="subjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_key">
+          <End Role="Role" Type="Self.Role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Online_examinationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Answertbls" EntityType="Self.Answertbl" />
+          <EntitySet Name="option_tb" EntityType="Self.option_tb" />
+          <EntitySet Name="optiontbls" EntityType="Self.optiontbl" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="subjects" EntityType="Self.subject" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Answertbl__Quest__05D8E0BE" Association="Self.FK__Answertbl__Quest__05D8E0BE">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Answertbl" EntitySet="Answertbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ansorder" Association="Self.FK_ansorder">
+            <End Role="option_tb" EntitySet="option_tb" />
+            <End Role="Answertbl" EntitySet="Answertbls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_option_tb_Question" Association="Self.FK_option_tb_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="option_tb" EntitySet="option_tb" />
+          </AssociationSet>
+          <AssociationSet Name="FK_optionID" Association="Self.FK_optionID">
+            <End Role="optiontbl" EntitySet="optiontbls" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Question__subjec__5CD6CB2B" Association="Self.FK__Question__subjec__5CD6CB2B">
+            <End Role="subject" EntitySet="subjects" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_key" Association="Self.FK_key">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="test_detailtbl" EntityType="Online_examinationModel.test_detailtbl" />
+          <AssociationSet Name="FK_test_detailtbl_User" Association="Online_examinationModel.FK_test_detailtbl_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="test_detailtbl" EntitySet="test_detailtbl" />
+          </AssociationSet>
+          <EntitySet Name="Marktbls" EntityType="Online_examinationModel.Marktbl" />
+          <AssociationSet Name="FK_Marktbl_test_detailtbl" Association="Online_examinationModel.FK_Marktbl_test_detailtbl">
+            <End Role="test_detailtbl" EntitySet="test_detailtbl" />
+            <End Role="Marktbl" EntitySet="Marktbls" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="test_detailtbl">
+          <Key>
+            <PropertyRef Name="tid" />
+          </Key>
+          <Property Name="tid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subjectid" Type="Int32" Nullable="false" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="s_time" Type="DateTime" Precision="3" />
+          <Property Name="e_time" Type="DateTime" Precision="3" />
+          <Property Name="duration" Type="Int32" Nullable="false" />
+          <Property Name="attend_ques" Type="Int32" Nullable="false" />
+          <Property Name="not_attend_ques" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Online_examinationModel.FK_test_detailtbl_User" FromRole="test_detailtbl" ToRole="User" />
+          <NavigationProperty Name="Marktbls" Relationship="Online_examinationModel.FK_Marktbl_test_detailtbl" FromRole="test_detailtbl" ToRole="Marktbl" />
+        </EntityType>
+        <Association Name="FK_test_detailtbl_User">
+          <End Type="Online_examinationModel.User" Role="User" Multiplicity="1" />
+          <End Type="Online_examinationModel.test_detailtbl" Role="test_detailtbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="test_detailtbl">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Marktbl">
+          <Key>
+            <PropertyRef Name="mark_id" />
+          </Key>
+          <Property Name="mark_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mark" Type="Int32" Nullable="false" />
+          <Property Name="test_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="test_detailtbl" Relationship="Online_examinationModel.FK_Marktbl_test_detailtbl" FromRole="Marktbl" ToRole="test_detailtbl" />
+        </EntityType>
+        <Association Name="FK_Marktbl_test_detailtbl">
+          <End Type="Online_examinationModel.test_detailtbl" Role="test_detailtbl" Multiplicity="1" />
+          <End Type="Online_examinationModel.Marktbl" Role="Marktbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_detailtbl">
+              <PropertyRef Name="tid" />
+            </Principal>
+            <Dependent Role="Marktbl">
+              <PropertyRef Name="test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Online_examinationModelStoreContainer" CdmEntityContainer="Online_examinationEntities">
+          <EntitySetMapping Name="Answertbls">
+            <EntityTypeMapping TypeName="Online_examinationModel.Answertbl">
+              <MappingFragment StoreEntitySet="Answertbl">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="optionID" ColumnName="optionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="option_tb">
+            <EntityTypeMapping TypeName="Online_examinationModel.option_tb">
+              <MappingFragment StoreEntitySet="option_tb">
+                <ScalarProperty Name="optionID" ColumnName="optionID" />
+                <ScalarProperty Name="optionsname" ColumnName="optionsname" />
+                <ScalarProperty Name="quesID" ColumnName="quesID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="optiontbls">
+            <EntityTypeMapping TypeName="Online_examinationModel.optiontbl">
+              <MappingFragment StoreEntitySet="optiontbl">
+                <ScalarProperty Name="optionID" ColumnName="optionID" />
+                <ScalarProperty Name="optiontype" ColumnName="optiontype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="Online_examinationModel.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Question_name" ColumnName="Question_name" />
+                <ScalarProperty Name="subjectID" ColumnName="subjectID" />
+                <ScalarProperty Name="optionID" ColumnName="optionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="Online_examinationModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Rolename" ColumnName="Rolename" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="subjects">
+            <EntityTypeMapping TypeName="Online_examinationModel.subject">
+              <MappingFragment StoreEntitySet="subject">
+                <ScalarProperty Name="subjectID" ColumnName="subjectID" />
+                <ScalarProperty Name="subjectname" ColumnName="subjectname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Online_examinationModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="otp" ColumnName="otp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="test_detailtbl">
+            <EntityTypeMapping TypeName="Online_examinationModel.test_detailtbl">
+              <MappingFragment StoreEntitySet="test_detailtbl">
+                <ScalarProperty Name="not_attend_ques" ColumnName="not_attend_ques" />
+                <ScalarProperty Name="attend_ques" ColumnName="attend_ques" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="e_time" ColumnName="e_time" />
+                <ScalarProperty Name="s_time" ColumnName="s_time" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="subjectid" ColumnName="subjectid" />
+                <ScalarProperty Name="tid" ColumnName="tid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Marktbls">
+            <EntityTypeMapping TypeName="Online_examinationModel.Marktbl">
+              <MappingFragment StoreEntitySet="Marktbl">
+                <ScalarProperty Name="test_id" ColumnName="test_id" />
+                <ScalarProperty Name="mark" ColumnName="mark" />
+                <ScalarProperty Name="mark_id" ColumnName="mark_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

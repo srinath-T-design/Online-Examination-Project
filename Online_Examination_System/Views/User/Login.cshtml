@@ -1,0 +1,131 @@
+﻿@model Bussiness_Object_Layer.Model.User
+
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Colan Quiz</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link href="~/Content/project.css" rel="stylesheet" />
+    <style>
+        h1 {
+            text-align: center;
+        }
+        .login {
+            background-image: url('../images/exam.jpg');                    
+            /*  background-image: url('../../images/home-home-office-laptop-living-room.jpg');*/
+            /*            background-image: url('../../images/black-business-desk-diary.jpg');
+*/ /* background-image: url('../images/book-business-drawing-education.jpg');*/
+            /*  background-image: url('../images/istockphoto-1255356316-1706675555.jpg');*/
+           /* background-image: url('../images/concept-quiz-time-text-digital-format-business-person-175675653.jpg');*/
+          /*  background-image: url('../images/writing-note-showing-online-quiz-business-concept-game-mind-sport-published-internet-woman-laptop-162192379.jpg');*/
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100vh;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+      
+     
+
+    </style>
+</head>
+<body>
+   
+    <div class="login">
+        <div class="account-login">
+            <h1>Login</h1>
+
+
+            @using (Html.BeginForm())
+            {
+                <form action="" class="login-form">
+                    <div class="form-group">
+                        @*<input type="text" placeholder="User Name" class="form-control">*@
+                        @Html.TextBoxFor(x => x.email, new { placeholder = "Email", @class = "form-control", id = "form1" })
+                        @*<p style="display:none;color:red" id="text1">Enter the Email</p>*@
+                        @Html.ValidationMessageFor(model => model.email)
+
+                    </div>
+                    <div class="form-group">
+
+                        @*<input type="password" placeholder="Password" class="form-control">*@
+                        @Html.PasswordFor(x => x.password, new { placeholder = "Password", @class = "form-control", id = "form2" })
+                        @*<p style="display:none;color:red" id="text2">Enter the Password</p>*@
+                        @Html.ValidationMessageFor(model => model.password)
+
+
+
+                        @*<i class="fas fa-eye"></i>*@
+                    </div>
+                    <div class="remember">
+                        @*<label class="custom-checkbox">
+                                Remember me
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>*@
+                        <a href="/User/Getotp/" class="pull-right">Forgot your Password?</a>
+                    </div>
+                    @*<input type="button" id="btn" value="Login">*@
+
+
+
+                    <button id="btn" class="btn"> Login</button>
+
+
+
+                    <p>Are you new?<a href="/User/Signup/">Sign Up</a></p>
+                </form>
+            }
+        </div>
+    </div>
+
+
+    <script src="~/Scripts/jquery-3.6.0.js"></script>
+
+    <script>
+        $("#btn").click(function () {
+            var text1 = $("#form1").val();
+            var text2 = $("#form2").val();
+
+
+
+
+            if (text1 == "" && text2 == "") {
+                $("#text1").css("display", "block")
+                $("#text2").css("display", "block")
+
+            }
+            if (text1 != "") {
+
+                $("#text1").css("display", "none")
+
+            }
+            else (text2 != ""){
+                $("#text2").css("display", "none")
+            }
+
+
+
+        });
+
+    </script>
+
+
+
+
+
+
+
+
+</body>
+</html>

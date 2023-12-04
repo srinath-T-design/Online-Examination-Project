@@ -1,0 +1,10 @@
+﻿
+@model IEnumerable<Bussiness_Object_Layer.Model.option_tb>
+
+<div id="radio1">
+ @foreach (var item in Model)
+ {
+    @Html.DisplayFor(modelitem => item.optionsname)<br />
+ }
+
+</div>

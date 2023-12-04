@@ -1,0 +1,166 @@
+﻿@model Bussiness_Object_Layer.Model.User
+
+@{
+    ViewBag.Title = "otpscreen";
+    Layout =null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Colan Quiz</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link href="~/Content/project.css" rel="stylesheet" />
+    <style>
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login">
+        <div class="account-login">
+            <h4>ENTER THE OTP</h4>
+
+            @using (Html.BeginForm())
+            {
+                <form action="" class="login-form">
+                    <div class="form-group">
+                        @*<input type="text" placeholder="User Name" class="form-control">*@
+                        @Html.TextBoxFor(x => x.otp, new { placeholder = "Enter the number", @class = "form-control", id = "form" })
+                        @*@Html.ValidationMessageFor(x=>x.otp)*@
+                        @*<p style="display:none;color:red" id="text">Enter the OTP number</p>*@
+                        @Html.ValidationMessageFor(x => x.otp, validationMessage: null, htmlAttributes: new { @class = "text-danger" });
+                        @*<span class="field-validation-error text-danger"
+                            data-valmsg-for="OTP"
+                            data-valmsg-replace="true">The otp field is Required</span>*@
+
+
+
+
+
+                    </div>
+
+                    <div class="remember">
+                        @*<label class="custom-checkbox">
+                                Remember me
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>*@
+
+                    </div>
+                    <button id="btn" class="btn">Submit</button>
+                    <p>Are you new?<a href="/User/Signup/">Back</a></p>
+                </form>
+            }
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+    <script>
+            $("#btn").click(function () {
+                var text = $("#form").val()
+
+                $("#text").css("display", "none")
+
+
+            });
+        </script>
+
+
+    @*<script>
+            $(document).ready(function () {
+                $("#btn").click(function () {
+                    validationForm();
+
+
+                });
+
+
+            });
+
+
+            function ValidationForm() {
+                if ($("#btn").val() == "") {
+                    alert("otp should not be empty.");
+                    return false;
+                }
+            }
+        </script>*@
+
+
+
+
+
+    @*<script>
+            var data = function () {
+                debugger
+                var data = $("#myForm").serialize();
+                var otp = $("#otp").val();
+
+                if (otp == "" || otp == undefined) {
+                    alert("please enter the otp")
+
+                    return false
+                }
+
+
+
+            }
+
+        </script>*@
+
+
+
+
+
+    @*<script>
+            $(function () {
+                $("#btn").click(function () {
+
+
+
+
+                    var data33 = $("form").serialize();
+                    console.log(data33);
+
+                    //if (!$("form").valid()) {
+                    //    return false;
+                    //}
+
+
+        $.ajax({
+
+
+                    type: "POST",
+                    url: "/Home/Create",
+
+                    data: data33,
+                    dataType: "json",
+                    success: function (data) {
+                        alert("inserted");
+
+                        window.location = "/Home/Index"//
+                    },
+                    error: function (data) {
+                        alert("OTP should not be empty");
+
+                   }
+
+                });
+            });
+        });
+            </script>*@
+
+
+
+
+
+
+</body>
+</html>

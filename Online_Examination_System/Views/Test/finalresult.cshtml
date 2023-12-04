@@ -1,0 +1,93 @@
+﻿@model Bussiness_Object_Layer.ViewModel.testdetailVM
+<link href="~/Content/popupanswer.css" rel="stylesheet" />
+
+<title>Colan Quiz</title>
+<div>
+
+    <!--<table>
+        <thead>
+            <tbody>
+        <tr>-->
+    @*<td>@Html.DisplayNameFor(x => x.Subject)</td>:*@
+
+    <!--<td>SUBJECT ID:</td>
+        <td>@Html.DisplayFor(x => x.Subject)</td>
+    </tr>
+
+    <tr>-->
+    @*<td>@Html.DisplayNameFor(x => x.attend)</td>:*@
+    <!--<td>ATTEND QUESTIONS:</td>
+        <br />
+
+        <td>@Html.DisplayFor(x => x.attend)</td>
+    </tr>
+    <tr>-->
+    @*<td>@Html.DisplayNameFor(x => x.not_attend)</td>:*@
+    <!--<td>NOT ATTEND QUESTIONS:</td>
+        <br />
+        <td>@Html.DisplayFor(x => x.not_attend)</td>
+    </tr>
+    <tr>-->
+    @*<td>@Html.DisplayNameFor(x => x.Duration)</td>:*@
+    <!--<td>DURATION:</td>
+        <br />
+
+        <td>@Html.DisplayFor(x => x.Duration)</td>
+    </tr>
+
+    <tr>-->
+    @*<td>@Html.DisplayNameFor(x => x.marks)</td>:*@
+    <!--<td>YOUR SCORE IS:</td>
+            <br />
+
+            <td>@Html.DisplayFor(x => x.marks)</td>
+        </tr>
+            </tbody>
+           </thead>
+    </table>-->
+
+    <p>ONLINE EXAMINATION SYSTEM VIEW RESULT</p>
+    @*<img src="~/Content/images/educate.png" />*@
+<img src="~/Content/images/edu.jpg" />
+    <table id="customers">
+
+
+        <tr>
+            <th>
+                RESULT:
+            </th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>SUBJECT ID:</td>
+            <td>@Html.DisplayFor(x => x.Subject)</td>
+
+        </tr>
+        <tr>
+            -
+            <td>ATTEND QUESTIONS:</td>
+            <td>@Html.DisplayFor(x => x.attend)</td>
+
+        </tr>
+        <tr>
+            <td>NOT ATTEND QUESTIONS:</td>
+            <td>@Html.DisplayFor(x => x.not_attend)</td>
+
+        </tr>
+        <tr>
+            <td>DURATION:</td>
+            <td>@Html.DisplayFor(x => x.Duration) sec </td>
+            
+
+        </tr>
+        <tr>
+            <td>YOUR MARKS IS:</td>
+            <td>@Html.DisplayFor(x => x.marks)</td>
+
+        </tr>
+
+
+    </table>
+
+
+</div>
