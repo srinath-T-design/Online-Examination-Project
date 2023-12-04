@@ -37,7 +37,7 @@ namespace Online_Examination_System.Controllers
 
         [HttpPost]
       
-        public ActionResult Signup(User  register)      
+        public ActionResult Signup(User  register)      //sign up page new registration page//
         {
 
             var data = usercontroller.AddUser(register);     
