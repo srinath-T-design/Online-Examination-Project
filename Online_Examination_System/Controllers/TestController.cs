@@ -59,11 +59,11 @@ namespace Online_Examination_System.Controllers
         {
 
             ViewBag.tid = tid;
-            //var data = GetTestBL.teststart(id);
+           
 
             var data2 = GetTestBL.checkanswer(ques1, tid);
             GetTestBL.testdetails(tid, ques1);
-           // return RedirectToAction("getquestion", new { test_id = tid });
+           
 
             var data1 = (from td in db.test_detailtbl  
                          join mk in db.Marktbls       
