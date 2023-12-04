@@ -37,7 +37,7 @@ namespace Online_Examination_System.Controllers
 
         [HttpPost]
       
-        public ActionResult Signup(User  register)      
+        public ActionResult Signup(User  register)      //sign up page new registration page//
         {
 
             var data = usercontroller.AddUser(register);     
@@ -74,7 +74,7 @@ namespace Online_Examination_System.Controllers
         public ActionResult Login(User user)    
         {
             var data = usercontroller.Login(user);
-            if (data != null&& data.RoleId==1)                   // roleid=1 aathu admin ava question and answer create panrathu//
+            if (data != null&& data.RoleId==1)                   
             {
               
                 return RedirectToAction("Create","subject");
