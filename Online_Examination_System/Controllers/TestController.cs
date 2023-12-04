@@ -37,7 +37,7 @@ namespace Online_Examination_System.Controllers
             test_detailtbl test = new test_detailtbl();
 
             test.subjectid = id;
-            test.s_time = Convert.ToDateTime(DateTime.Now);   //start time //
+            test.s_time = Convert.ToDateTime(DateTime.Now);  
 
             int userid = Convert.ToInt32(Session["Userid"]);
             test.userid = userid;
